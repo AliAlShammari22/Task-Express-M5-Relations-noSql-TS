@@ -7,7 +7,10 @@ const getAllAuthors = async (
   next: NextFunction
 ) => {
   try {
-    const authors = await Author.find().populate("posts", "title body");
+    const authors = await Author.find()
+      // i want to show only name in the tags
+      .populate("posts", "title body tags")
+      .select("name posts");
     res.status(200).json(authors);
   } catch (error) {
     next(error);
